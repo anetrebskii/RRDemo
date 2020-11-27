@@ -8,6 +8,7 @@ namespace RRDemo.Plugins
         public TimeEntryPreOperationCreate(string unsecure, string secure)
            : base(typeof(TimeEntryPreOperationCreate))
         {
+
         }
 
         protected override void ExecuteCrmPlugin(LocalPluginContext localContext)
