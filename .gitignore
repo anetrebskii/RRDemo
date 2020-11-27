@@ -3,3 +3,11 @@
 ################################################################################
 
 /.vs
+/CrmPackage/bin/Debug
+/CrmPackage/obj/Debug
+/CrmPackage
+/packages
+/Plugins/bin/Debug
+/Plugins
+/RRDemo.Plugins/bin/Debug
+/RRDemo.Plugins/obj
