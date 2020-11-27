@@ -20,11 +20,6 @@ namespace RRDemo.Plugins
             Duration = (int)End.Subtract(Start).TotalMinutes;
         }
 
-        public bool IsOverlapped(DateRange date)
-        {
-            return Start.CompareTo(date.End) < 0 && date.End.CompareTo(End) < 0;
-        }
-
         public bool Equals(DateRange other)
         {
             return this.Date == other.Date;
