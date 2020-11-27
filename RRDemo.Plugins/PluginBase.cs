@@ -13,14 +13,12 @@ namespace RRDemo.Plugins
         /// Plug-in context object. 
         /// </summary>
         protected class LocalPluginContext
-        {
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "LocalPluginContext")]
+        {            
             internal IServiceProvider ServiceProvider { get; private set; }
 
             /// <summary>
             /// The Microsoft Dynamics 365 organization service.
-            /// </summary>
-            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "LocalPluginContext")]
+            /// </summary>           
             internal IOrganizationService OrganizationService { get; private set; }
 
             /// <summary>
@@ -97,15 +95,13 @@ namespace RRDemo.Plugins
         /// <summary>
         /// Gets or sets the name of the child class.
         /// </summary>
-        /// <value>The name of the child class.</value>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "PluginBase")]
+        /// <value>The name of the child class.</value>      
         protected string ChildClassName { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="PluginBase"/> class.
         /// </summary>
-        /// <param name="childClassName">The <see cref=" cred="Type"/> of the derived class.</param>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Justification = "PluginBase")]
+        /// <param name="childClassName">The <see cref=" cred="Type"/> of the derived class.</param>       
         internal PluginBase(Type childClassName)
         {
             ChildClassName = childClassName.ToString();
@@ -121,8 +117,7 @@ namespace RRDemo.Plugins
         /// is not called for every invocation of the plug-in. Also, multiple system threads 
         /// could execute the plug-in at the same time. All per invocation state information 
         /// is stored in the context. This means that you should not use global variables in plug-ins.
-        /// </remarks>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Globalization", "CA1303:Do not pass literals as localized parameters", MessageId = "CrmVSSolution411.NewProj.PluginBase+LocalPluginContext.Trace(System.String)", Justification = "Execute")]
+        /// </remarks>      
         public void Execute(IServiceProvider serviceProvider)
         {
             if (serviceProvider == null)

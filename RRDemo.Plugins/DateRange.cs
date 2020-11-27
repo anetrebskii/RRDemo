@@ -10,7 +10,6 @@ namespace RRDemo.Plugins
         public DateRange(Entity entity)
         {
             _timeentry = entity;
-
         }
 
         public DateRange(DateTime start, DateTime end, DateTime date) : this(new Entity(Constants.TIME_ENTRY))
