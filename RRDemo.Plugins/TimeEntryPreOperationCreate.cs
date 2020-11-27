@@ -9,11 +9,10 @@ namespace RRDemo.Plugins
            : base(typeof(TimeEntryPreOperationCreate))
         {
 
-            
         }
 
         protected override void ExecuteCrmPlugin(LocalPluginContext localContext)
-        {  
+        {
             DateTime start;
             DateTime end;
             Entity timeEntry;
@@ -21,6 +20,6 @@ namespace RRDemo.Plugins
 
             if (logic.TryValidateContext(localContext.PluginExecutionContext, out timeEntry, out start, out end))
                 logic.Execute(timeEntry, start, end);
-        }       
+        }
     }
 }

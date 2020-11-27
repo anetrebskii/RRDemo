@@ -1,8 +1,6 @@
 ﻿using Microsoft.Xrm.Sdk;
 using System;
-using System.Collections.ObjectModel;
 using System.Globalization;
-using System.Linq;
 using System.ServiceModel;
 
 namespace RRDemo.Plugins
@@ -155,9 +153,6 @@ namespace RRDemo.Plugins
         /// Placeholder for a custom plug-in implementation. 
         /// </summary>
         /// <param name="localcontext">Context for the current plug-in.</param>
-        protected virtual void ExecuteCrmPlugin(LocalPluginContext localcontext)
-        {
-            // Do nothing. 
-        }       
+        protected abstract void ExecuteCrmPlugin(LocalPluginContext localcontext);
     }
 }
