@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRDemo.Plugins", "RRDemo.Plugins\RRDemo.Plugins.csproj", "{B8A34F88-814B-481F-A19B-DEF2E6466542}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RRDemo.Plugins.UnitTests", "RRDemo.Plugins.UnitTests\RRDemo.Plugins.UnitTests.csproj", "{259B2482-A558-496B-A47D-58C879D80332}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{B8A34F88-814B-481F-A19B-DEF2E6466542}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8A34F88-814B-481F-A19B-DEF2E6466542}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8A34F88-814B-481F-A19B-DEF2E6466542}.Release|Any CPU.Build.0 = Release|Any CPU
+		{259B2482-A558-496B-A47D-58C879D80332}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{259B2482-A558-496B-A47D-58C879D80332}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{259B2482-A558-496B-A47D-58C879D80332}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{259B2482-A558-496B-A47D-58C879D80332}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
