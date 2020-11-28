@@ -12,3 +12,5 @@
 /RRDemo.Plugins/bin/Debug
 /RRDemo.Plugins/obj
 /RRDemo.Plugins/bin/Release
+/RRDemo.Plugins.UnitTests/bin
+/RRDemo.Plugins.UnitTests/obj

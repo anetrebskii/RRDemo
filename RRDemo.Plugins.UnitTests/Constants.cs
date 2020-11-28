@@ -1,9 +1,10 @@
-﻿namespace RRDemo.Plugins
+﻿namespace RRDemo.Plugins.UnitTests
 {
     internal static class Constants
     {
         //Parameters
-        public const string TARGET = "Target";        
+        public const string TARGET = "Target";
+        public const string ID = "Id";
 
         //Entities
         public const string TIME_ENTRY = "msdyn_timeentry";
