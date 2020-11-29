@@ -75,15 +75,6 @@ namespace RRDemo.Plugins
             get => _timeentry.GetAttributeValue<EntityReference>(Constants.RESOURCE).Id;
         }
 
-        public EntityReference Resource
-        {
-            private set
-            {
-                _timeentry[Constants.RESOURCE] = value;
-            }
-            get => _timeentry.GetAttributeValue<EntityReference>(Constants.RESOURCE);
-        }
-
         public Entity Entity
         {
             get
