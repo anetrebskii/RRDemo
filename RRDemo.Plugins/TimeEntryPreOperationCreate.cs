@@ -15,11 +15,12 @@ namespace RRDemo.Plugins
         {
             DateTime start;
             DateTime end;
+            Guid resourceId;
             Entity timeEntry;
             var logic = new BusinessLogic(localContext.OrganizationService);
 
-            if (logic.TryValidateContext(localContext.PluginExecutionContext, out timeEntry, out start, out end))
-                logic.Execute(timeEntry, start, end);
+            if (logic.TryValidateContext(localContext.PluginExecutionContext, out timeEntry, out start, out end, out resourceId))
+                logic.Execute(timeEntry, start, end, resourceId);
         }
     }
 }

@@ -12,11 +12,12 @@ namespace RRDemo.Plugins
             _timeentry = entity;
         }
 
-        public DateRange(DateTime start, DateTime end, DateTime date) : this(new Entity(Constants.TIME_ENTRY))
+        public DateRange(DateTime start, DateTime end, DateTime date, Guid resourceId) : this(new Entity(Constants.TIME_ENTRY))
         {
             Start = start;
             End = end;
             Date = date;
+            ResourceId = resourceId;
             Duration = (int)End.Subtract(Start).TotalMinutes;
         }
 
@@ -37,9 +38,7 @@ namespace RRDemo.Plugins
                 _timeentry[Constants.START] = value;
             }
             get
-            {
-                return _timeentry.GetAttributeValue<DateTime>(Constants.START);
-            }
+            => _timeentry.GetAttributeValue<DateTime>(Constants.START);
         }
         public DateTime End
         {
@@ -48,9 +47,7 @@ namespace RRDemo.Plugins
                 _timeentry[Constants.END] = value;
             }
             get
-            {
-                return _timeentry.GetAttributeValue<DateTime>(Constants.END);
-            }
+            => _timeentry.GetAttributeValue<DateTime>(Constants.END);
         }
         public DateTime Date
         {
@@ -58,10 +55,7 @@ namespace RRDemo.Plugins
             {
                 _timeentry[Constants.DATE] = value;
             }
-            get
-            {
-                return _timeentry.GetAttributeValue<DateTime>(Constants.DATE);
-            }
+            get => _timeentry.GetAttributeValue<DateTime>(Constants.DATE);
         }
         public int Duration
         {
@@ -69,10 +63,25 @@ namespace RRDemo.Plugins
             {
                 _timeentry[Constants.DURATION] = value;
             }
-            get
+            get => _timeentry.GetAttributeValue<int>(Constants.DURATION);
+        }
+
+        public Guid ResourceId
+        {
+            private set
             {
-                return _timeentry.GetAttributeValue<int>(Constants.DURATION);
+                _timeentry[Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, value);
             }
+            get => _timeentry.GetAttributeValue<EntityReference>(Constants.RESOURCE).Id;
+        }
+
+        public EntityReference Resource
+        {
+            private set
+            {
+                _timeentry[Constants.RESOURCE] = value;
+            }
+            get => _timeentry.GetAttributeValue<EntityReference>(Constants.RESOURCE);
         }
 
         public Entity Entity

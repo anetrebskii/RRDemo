@@ -16,16 +16,17 @@ namespace RRDemo.Plugins
         {
             DateTime start;
             DateTime end;
+            Guid resourceId;
             Entity timeEntry;
             var logic = new BusinessLogic(localContext.OrganizationService);
 
-            if (!logic.TryValidateContext(localContext.PluginExecutionContext, out timeEntry, out start, out end))
+            if (!logic.TryValidateContext(localContext.PluginExecutionContext, out timeEntry, out start, out end, out resourceId))
                 return;
 
             if (start == end)
                 throw new InvalidPluginExecutionException($"msdyn_start can't be equal msdyn_end");
 
-            var leftRecords = new BusinessLogic(localContext.OrganizationService).GetTimeEntriesToCreate(start, end);
+            var leftRecords = new BusinessLogic(localContext.OrganizationService).GetTimeEntriesToCreate(start, end, resourceId);
 
             if (leftRecords.Count() == 0)
                 throw new InvalidPluginExecutionException($"Can't create duplicate time entry");

@@ -14,15 +14,16 @@ namespace RRDemo.Plugins
             _orgService = orgService;
         }
 
-        public IEnumerable<DateRange> GetTimeEntriesToCreate(DateTime start, DateTime end)
+        public IEnumerable<DateRange> GetTimeEntriesToCreate(DateTime start, DateTime end, Guid resourceId)
         {
             var query = new QueryExpression(Constants.TIME_ENTRY)
             {
-                ColumnSet = new ColumnSet(new[] { Constants.START, Constants.END, Constants.DATE }),
+                ColumnSet = new ColumnSet(new[] { Constants.START, Constants.END, Constants.DATE, Constants.RESOURCE, Constants.DURATION }),
                 Criteria = new FilterExpression
                 {
                     Conditions = {
-                            new ConditionExpression(Constants.DATE,ConditionOperator.Between, new[]{ start.Date, end.Date })
+                            new ConditionExpression(Constants.DATE,ConditionOperator.Between, new[]{ start.Date, end.Date }),
+                            new ConditionExpression(Constants.RESOURCE, ConditionOperator.Equal, resourceId)
                         }
                 }
             };
@@ -33,14 +34,17 @@ namespace RRDemo.Plugins
 
             return Enumerable.Range(0, days)
                  .Select(x =>
-                    new DateRange(x == 0 ? start : start.Date.AddDays(x), x == days - 1 ? end : start.Date.AddDays(x + 1), start.AddDays(x).Date)
+                    new DateRange(start.Date.AddDays(x), start.Date.AddDays(x + 1).AddMinutes(-1), start.AddDays(x).Date, resourceId)
                  )
                  .Except(existingRanges);
         }
 
-        public bool TryValidateContext(IPluginExecutionContext context, out Entity timeEntry, out DateTime start, out DateTime end)
+        public bool TryValidateContext(IPluginExecutionContext context, out Entity timeEntry, out DateTime start, out DateTime end, out Guid resourceId)
         {
             start = end = new DateTime();
+            resourceId = Guid.Empty;
+            EntityReference resource;
+
             timeEntry = new Entity();
 
             if (context.Depth > 1)
@@ -53,18 +57,24 @@ namespace RRDemo.Plugins
 
             if (!timeEntry.TryGetAttributeValue(Constants.START, out start))
                 return false;
+
             if (!timeEntry.TryGetAttributeValue(Constants.END, out end))
                 return false;
+
+            if (!timeEntry.TryGetAttributeValue(Constants.RESOURCE, out resource))
+                return false;
+
+            resourceId = resource.Id;
 
             return true;
         }
 
-        public void Execute(Entity timeEntry, DateTime start, DateTime end)
+        public void Execute(Entity timeEntry, DateTime start, DateTime end, Guid resourceId)
         {
-            CreateTimeEntries(timeEntry, start, end, GetTimeEntriesToCreate(start, end));
+            CreateTimeEntries(timeEntry, GetTimeEntriesToCreate(start, end, resourceId));
         }
 
-        private void CreateTimeEntries(Entity timeEntry, DateTime start, DateTime end, IEnumerable<DateRange> records)
+        private void CreateTimeEntries(Entity timeEntry, IEnumerable<DateRange> records)
         {
             var currentRecord = records.First();
             timeEntry[Constants.START] = currentRecord.Start;
