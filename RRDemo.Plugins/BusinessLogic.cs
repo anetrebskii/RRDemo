@@ -18,7 +18,7 @@ namespace RRDemo.Plugins
         {
             var query = new QueryExpression(Constants.TIME_ENTRY)
             {
-                ColumnSet = new ColumnSet(new[] { Constants.START, Constants.END, Constants.DATE, Constants.RESOURCE, Constants.DURATION }),
+                ColumnSet = new ColumnSet(new[] { Constants.START, Constants.END, Constants.DATE, Constants.DURATION, Constants.RESOURCE }),
                 Criteria = new FilterExpression
                 {
                     Conditions = {
@@ -34,7 +34,7 @@ namespace RRDemo.Plugins
 
             return Enumerable.Range(0, days)
                  .Select(x =>
-                    new DateRange(start.Date.AddDays(x), start.Date.AddDays(x + 1).AddMinutes(-1), start.AddDays(x).Date, resourceId)
+                    new DateRange(start.Date.AddDays(x), start.Date.AddDays(x + 1).AddMinutes(-1), start.Date.AddDays(x), resourceId)
                  )
                  .Except(existingRanges);
         }
