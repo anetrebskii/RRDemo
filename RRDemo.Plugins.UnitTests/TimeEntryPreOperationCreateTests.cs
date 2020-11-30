@@ -17,6 +17,7 @@ namespace RRDemo.Plugins.UnitTests
 
             DateTime START = new DateTime(2020, 12, 1);
             DateTime END = new DateTime(2020, 12, 3, 12, 0, 0);
+            Guid resourseId = Guid.NewGuid();
 
             //Populate virtual Dataverse with initial timeentries
             context.Initialize(new List<Entity> {
@@ -27,7 +28,8 @@ namespace RRDemo.Plugins.UnitTests
                     {
                         [Constants.START] = START,
                         [Constants.END] = new DateTime(2020,12,1,12,0,0),
-                        [Constants.DATE] = new DateTime(2020,12,1)
+                        [Constants.DATE] = new DateTime(2020,12,1),
+                        [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, resourseId)
                     }
                 },
                 new Entity(Constants.TIME_ENTRY)
@@ -37,10 +39,11 @@ namespace RRDemo.Plugins.UnitTests
                     {
                         [Constants.START] = new DateTime(2020,12,3),
                         [Constants.END] = END,
-                        [Constants.DATE] = new DateTime(2020,12,3)
+                        [Constants.DATE] = new DateTime(2020,12,3),
+                        [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, resourseId)
                     }
                 },
-            });
+            }); ;
 
             //Timeentry supposed to be created 
             var timeEntry = new Entity(Constants.TIME_ENTRY)
@@ -49,7 +52,8 @@ namespace RRDemo.Plugins.UnitTests
                 Attributes =
                     {
                         [Constants.START] = START,
-                        [Constants.END] = END
+                        [Constants.END] = END,
+                        [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, resourseId)
                     }
             };
 
@@ -64,7 +68,8 @@ namespace RRDemo.Plugins.UnitTests
                 Criteria = new FilterExpression
                 {
                     Conditions = {
-                            new ConditionExpression(Constants.DATE,ConditionOperator.Between, new[]{ START.Date, END.Date })
+                            new ConditionExpression(Constants.DATE,ConditionOperator.Between, new[]{ START.Date, END.Date }),
+                            new ConditionExpression(Constants.RESOURCE, ConditionOperator.Equal, resourseId)
                         }
                 }
             };
@@ -74,9 +79,9 @@ namespace RRDemo.Plugins.UnitTests
             //Check results
             Assert.AreEqual(result.Length, 2);
             Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.START), new DateTime(2020, 12, 2));
-            Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.END), new DateTime(2020, 12, 3));
+            Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.END), new DateTime(2020, 12, 3).AddMinutes(-1));
             Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.DATE), new DateTime(2020, 12, 2));
-            Assert.AreEqual(timeEntry.GetAttributeValue<int>(Constants.DURATION), 1440);
+            Assert.AreEqual(timeEntry.GetAttributeValue<int>(Constants.DURATION), 1439);
         }
 
         [TestMethod]
@@ -87,6 +92,7 @@ namespace RRDemo.Plugins.UnitTests
             //Populate virtual Dataverse with initial timeentries
             DateTime START = new DateTime(2020, 12, 1);
             DateTime END = new DateTime(2020, 12, 3, 12, 0, 0);
+            Guid resourseId = Guid.NewGuid();
 
             context.Initialize(new List<Entity> {
                 new Entity(Constants.TIME_ENTRY)
@@ -96,7 +102,8 @@ namespace RRDemo.Plugins.UnitTests
                     {
                         [Constants.START] = new DateTime(2020,12,3),
                         [Constants.END] = END,
-                        [Constants.DATE] = new DateTime(2020,12,3)
+                        [Constants.DATE] = new DateTime(2020,12,3),
+                        [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, resourseId)
                     }
                 },
             });
@@ -108,7 +115,8 @@ namespace RRDemo.Plugins.UnitTests
                 Attributes =
                     {
                         [Constants.START] = START,
-                        [Constants.END] = END
+                        [Constants.END] = END,
+                        [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, resourseId)
                     }
             };
 
@@ -122,7 +130,8 @@ namespace RRDemo.Plugins.UnitTests
                 Criteria = new FilterExpression
                 {
                     Conditions = {
-                            new ConditionExpression(Constants.DATE,ConditionOperator.Between, new[]{ START.Date, END.Date })
+                            new ConditionExpression(Constants.DATE,ConditionOperator.Between, new[]{ START.Date, END.Date }),
+                            new ConditionExpression(Constants.RESOURCE, ConditionOperator.Equal, resourseId)
                         }
                 }
             };
@@ -133,9 +142,9 @@ namespace RRDemo.Plugins.UnitTests
             //Check results
             Assert.AreEqual(result.Length, 2);
             Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.START), new DateTime(2020, 12, 1));
-            Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.END), new DateTime(2020, 12, 2));
+            Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.END), new DateTime(2020, 12, 2).AddMinutes(-1));
             Assert.AreEqual(timeEntry.GetAttributeValue<DateTime>(Constants.DATE), new DateTime(2020, 12, 1));
-            Assert.AreEqual(timeEntry.GetAttributeValue<int>(Constants.DURATION), 1440);
+            Assert.AreEqual(timeEntry.GetAttributeValue<int>(Constants.DURATION), 1439);
         }
     }
 }

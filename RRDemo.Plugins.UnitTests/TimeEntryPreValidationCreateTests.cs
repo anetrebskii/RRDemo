@@ -23,7 +23,8 @@ namespace RRDemo.Plugins.UnitTests
                 {
                     [Constants.START] = new DateTime(2020,12,1),
                     [Constants.END] = new DateTime(2020,12,1,12,0,0),
-                    [Constants.DATE] = new DateTime(2020,12,1)
+                    [Constants.DATE] = new DateTime(2020,12,1),
+                    [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, Guid.NewGuid())
                 }
             };
 
@@ -54,7 +55,8 @@ namespace RRDemo.Plugins.UnitTests
                 Attributes =
                 {
                     [Constants.START] = SAME_DATE,
-                    [Constants.END] = SAME_DATE
+                    [Constants.END] = SAME_DATE,
+                    [Constants.RESOURCE] = new EntityReference(Constants.BOOKABLE_RESOURCE, Guid.NewGuid())
                 }
             };
 
