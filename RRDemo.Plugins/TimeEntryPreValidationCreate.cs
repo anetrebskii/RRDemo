@@ -26,7 +26,7 @@ namespace RRDemo.Plugins
             if (start == end)
                 throw new InvalidPluginExecutionException($"msdyn_start can't be equal msdyn_end");
 
-            var leftRecords = new BusinessLogic(localContext.OrganizationService).GetTimeEntriesToCreate(start, end, resourceId);
+            var leftRecords = logic.GetTimeEntriesToCreate(start, end, resourceId);
 
             if (leftRecords.Count() == 0)
                 throw new InvalidPluginExecutionException($"Can't create duplicate time entry");
